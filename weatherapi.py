@@ -1,7 +1,7 @@
-import aiohttp, asyncio, json
+import aiohttp, asyncio, json, os
 from itertools import product
 
-api_key = "8544124cd561d6c2864158fd6689b20c"
+api_key = os.environ['API_KEY']
 
 services = [
     'weather',
