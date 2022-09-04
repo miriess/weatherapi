@@ -23,21 +23,23 @@ locations_dict = {
     }
 
 
-async def getter_cor(url):
+async def getter_cor(url, **kwargs):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as resp:
             res = await resp.json()
-    return res
+    kwargs['api_answer'] = res
+    return kwargs
 
 async def main():
     res = await asyncio.gather(
             *[
-            getter_cor(weather_url.format(**locations_dict[x], api_key = api_key, service = y))
+            getter_cor(weather_url.format(**locations_dict[x], api_key = api_key, service = y), location = x, service = y)
             for x, y in product(list(locations_dict.keys()), services)
             ]
         )
     for resp in res:
-        print(json.dumps(resp, indent=2))
+        with open(f"{resp['location']}_{resp['service']}.json", 'w') as outputfile:
+            outputfile.write(json.dumps(resp['api_answer'], indent=2))
 
 if __name__ == '__main__':
     asyncio.run(main())
