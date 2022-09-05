@@ -9,7 +9,7 @@ services = [
     'air_pollution'
     ]
 
-weather_url = "https://api.openweathermap.org/data/2.5/{service}?lat={lat}&lon={lon}&appid={api_key}"
+weather_url = "https://api.openweathermap.org/data/2.5/{service}?lat={lat}&lon={lon}&appid={api_key}&units=metric"
 
 locations_dict = {
     'richtstr_mh': {
